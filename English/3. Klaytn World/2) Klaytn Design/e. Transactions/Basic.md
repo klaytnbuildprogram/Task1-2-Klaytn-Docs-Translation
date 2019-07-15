@@ -15,7 +15,7 @@ If to is nil, it is regarded as a smart contract deployment transaction. The sma
 
 If to is a smart contract, the smart contract function specified in input is executed.
 
-Attributes
+### Attributes
 Attribute
 
 Type
@@ -64,23 +64,23 @@ gasPrice
 
 A multiplier to get how much the sender will pay in tokens. The amount of tokens the sender will pay is calculated via gas * gasPrice. For example, the sender will pay 10 KLAY for a transaction fee if gas is 10 and gasPrice is 10^18. Unit of KLAY is described here.
 
-RLP Encoding for Signature
+### RLP Encoding for Signature
 To make a signature of this transaction type, RLP serialization should be done like the following:
 
 SigRLP = encode([nonce, gasPrice, gas, to, value, input, chainid, 0, 0])
 SigHash = keccak256(SigRLP)
 Signature = sign(SigHash, <private key>)
-RLP Encoding for SenderTxHash
+### RLP Encoding for SenderTxHash
 To make a SenderTxHash, RLP serialization should be done like the following:
 
 SenderTxHashRLP = encode([nonce, gasPrice, gas, to, value, input, v, r, s])
 SenderTxHash = keccak256(SenderTxHashRLP)
-RLP Encoding for Transaction Hash
+### RLP Encoding for Transaction Hash
 To make a transaction hash, RLP serialization should be done like the following:
 
 TxHashRLP = encode([nonce, gasPrice, gas, to, value, input, v, r, s])
 TxHash = keccak256(TxHashRLP)
-RLP Encoding (Example)
+### RLP Encoding (Example)
 The following shows the result of RLP serialization and the transaction object:
 
 ChainID 0x1
@@ -108,7 +108,7 @@ SenderTxHash e434257753bf31a130c839fec0bd34fc6ea4aa256b825288ee82db31c2ed7524
     R:        0xb2a5a15550ec298dc7dddde3774429ed75f864c82caeb5ee24399649ad731be9
     S:        0x29da1014d16f2011b3307f7bbe1035b6e699a4204fc416c763def6cefd976567
     Hex:      f8668204d219830f4240947b65b75d204abed71587c9e519a89277766ee1d00a843132333425a0b2a5a15550ec298dc7dddde3774429ed75f864c82caeb5ee24399649ad731be9a029da1014d16f2011b3307f7bbe1035b6e699a4204fc416c763def6cefd976567
-RPC Output (Example)
+### RPC Output (Example)
 The following shows a transaction object returned via JSON RPC.
 
 {
@@ -139,7 +139,7 @@ The following shows a transaction object returned via JSON RPC.
   "typeInt": 0,
   "value": "0x174876e800"
 }
-TxTypeValueTransfer
+## TxTypeValueTransfer
 TxTypeValueTransfer is used when a user wants to send tokens. As Klaytn provides multiple transaction types to make each transaction type serve a single purpose, TxTypeValueTransfer is limited to send tokens to an externally owned account. Therefore, TxTypeValueTransfer is accepted only if to is an externally owned account. To transfer tokens to a smart contract account, use TxTypeSmartContractExecution instead. The following changes will be made by this transaction type.
 
 The sender's balance decreases by the amount of the transaction fee.
@@ -148,7 +148,7 @@ The sender's nonce increases by one.
 
 value KLAY is transferred from the sender to the recipient.
 
-Attributes
+### Attributes
 Attribute
 
 Type
@@ -203,27 +203,27 @@ txSignatures
 
 The sender's signatures. For more details, see Signature Validation of Transactions.
 
-RLP Encoding for Signature
+### RLP Encoding for Signature
 To make a transaction signature, RLP serialization should be done like the following:
 
 SigRLP = encode([encode([type, nonce, gasPrice, gas, to, value, from]), chainid, 0, 0])
 SigHash = keccak256(SigRLP)
 Signature = sign(SigHash, <private key>)
-RLP Encoding for SenderTxHash
+### RLP Encoding for SenderTxHash
 To make a SenderTxHash, RLP serialization should be done like the following:
 
 txSignatures (a single signature) = [[v, r, s]]
 txSignatures (two signatures) = [[v1, r1, s1], [v2, r2, s2]]
 SenderTxHashRLP = type + encode([nonce, gasPrice, gas, to, value, from, txSignatures])
 SenderTxHash = keccak256(SenderTxHashRLP)
-RLP Encoding for Transaction Hash
+### RLP Encoding for Transaction Hash
 To make a transaction hash, RLP serialization should be done like the following:
 
 txSignatures (a single signature) = [[v, r, s]]
 txSignatures (two signatures) = [[v1, r1, s1], [v2, r2, s2]]
 TxHashRLP = type + encode([nonce, gasPrice, gas, to, value, from, txSignatures])
 TxHash = keccak256(TxHashRLP)
-RLP Encoding (Example)
+### RLP Encoding (Example)
 The following shows the result of RLP serialization with the given parameters and the information of the transaction object:
 
 ChainID 0x1
@@ -248,7 +248,7 @@ SenderTxHash 762f130342569e9669a4d8547f1248bd2554fbbf3062d63a97ce28bfa97aa9d7
     Value:         0xa
     Signature:     [{"V":"0x25","R":"0xf3d0cd43661cabf53425535817c5058c27781f478cb5459874feaa462ed3a29a","S":"0x6748abe186269ff10b8100a4b7d7fea274b53ea2905acbf498dc8b5ab1bf4fbc"}]
     Hex:           08f87a8204d219830f4240947b65b75d204abed71587c9e519a89277766ee1d00a94a94f5374fce5edbc8e2a8697c15331677e6ebf0bf845f84325a0f3d0cd43661cabf53425535817c5058c27781f478cb5459874feaa462ed3a29aa06748abe186269ff10b8100a4b7d7fea274b53ea2905acbf498dc8b5ab1bf4fbc
-RPC Output (Example)
+### RPC Output (Example)
 The following shows a transaction object returned via JSON RPC.
 
 {
@@ -278,7 +278,7 @@ The following shows a transaction object returned via JSON RPC.
   "typeInt": 8,
   "value": "0x21e19e0c9bab2400000"
 }
-TxTypeValueTransferMemo
+## TxTypeValueTransferMemo
 TxTypeValueTransferMemo is used when a user wants to send tokens with a specific message. TxTypeValueTransferMemo is accepted only if to is an externally owned account. To transfer tokens to a smart contract account, use TxTypeSmartContractExecution instead. The following changes will be made by this transaction type.
 
 The sender's balance decreases by the amount of the transaction fee.
@@ -287,7 +287,7 @@ The sender's nonce increases by one.
 
 value KLAY is transferred from the sender to the recipient.
 
-Attributes
+### Attributes
 Attribute
 
 Type
@@ -348,27 +348,27 @@ txSignatures
 
 The sender's signatures. For more details, see Signature Validation of Transactions.
 
-RLP Encoding for Signature
+### RLP Encoding for Signature
 To make a transaction signature, RLP serialization should be done like the following:
 
 SigRLP = encode([encode([type, nonce, gasPrice, gas, to, value, from, input]), chainid, 0, 0])
 SigHash = keccak256(SigRLP)
 Signature = sign(SigHash, <private key>)
-RLP Encoding for SenderTxHash
+### RLP Encoding for SenderTxHash
 To make a SenderTxHash, RLP serialization should be done like the following:
 
 txSignatures (a single signature) = [[v, r, s]]
 txSignatures (two signatures) = [[v1, r1, s1], [v2, r2, s2]]
 SenderTxHashRLP = type + encode([nonce, gasPrice, gas, to, value, from, input, txSignatures])
 SenderTxHash = keccak256(SenderTxHashRLP)
-RLP Encoding for Transaction Hash
+### RLP Encoding for Transaction Hash
 To make a transaction hash, RLP serialization should be done like the following:
 
 txSignatures (a single signature) = [[v, r, s]]
 txSignatures (two signatures) = [[v1, r1, s1], [v2, r2, s2]]
 TxHashRLP = type + encode([nonce, gasPrice, gas, to, value, from, input, txSignatures])
 TxHash = keccak256(TxHashRLP)
-RLP Encoding (Example)
+### RLP Encoding (Example)
 The following shows the result of RLP serialization and the transaction object:
 
 ChainID 0x1
@@ -394,7 +394,7 @@ SenderTxHash 6c7ee543c24e5b928b638a9f4502c1eca69103f5467ed4b6a2ed0ea5aede2e6b
     Signature:     [{"V":"0x25","R":"0x7d2b0c89ee8afa502b3186413983bfe9a31c5776f4f820210cffe44a7d568d1c","S":"0x2b1cbd587c73b0f54969f6b76ef2fd95cea0c1bb79256a75df9da696278509f3"}]
     Data:          36383635366336633666
     Hex:           10f8808204d219830f4240947b65b75d204abed71587c9e519a89277766ee1d00a94a94f5374fce5edbc8e2a8697c15331677e6ebf0b8568656c6c6ff845f84325a07d2b0c89ee8afa502b3186413983bfe9a31c5776f4f820210cffe44a7d568d1ca02b1cbd587c73b0f54969f6b76ef2fd95cea0c1bb79256a75df9da696278509f3
-RPC Output (Example)
+### RPC Output (Example)
 The following shows a transaction object returned via JSON RPC.
 
 {
@@ -425,7 +425,7 @@ The following shows a transaction object returned via JSON RPC.
   "typeInt": 16,
   "value": "0x989680"
 }
-TxTypeSmartContractDeploy
+## TxTypeSmartContractDeploy
 TxTypeSmartContractDeploy deploys a smart contract to the given address. The following changes will be made by this transaction type.
 
 The sender's balance decreases by the amount of the transaction fee.
@@ -436,7 +436,7 @@ A smart contract is deployed with the code in input. The deployed address will b
 
 value KLAY is transferred from the sender to the recipient.
 
-Attributes
+### Attributes
 Attribute
 
 Type
@@ -509,27 +509,27 @@ txSignatures
 
 The sender's signatures. For more details, see Signature Validation of Transactions.
 
-RLP Encoding for Signature
+### RLP Encoding for Signature
 To make a signature of this transaction type, RLP serialization should be done like the following:
 
 SigRLP = encode([encode([type, nonce, gasPrice, gas, to, value, from, input, humanReadable, codeFormat]), chainid, 0, 0])
 SigHash = keccak256(SigRLP)
 Signature = sign(SigHash, <private key>)
-RLP Encoding for SenderTxHash
+### RLP Encoding for SenderTxHash
 To make a SenderTxHash, RLP serialization should be done like the following:
 
 txSignatures (a single signature) = [[v, r, s]]
 txSignatures (two signatures) = [[v1, r1, s1], [v2, r2, s2]]
 SenderTxHashRLP = type + encode([nonce, gasPrice, gas, to, value, from, input, humanReadable, codeFormat, txSignatures])
 SenderTxHash = keccak256(SenderTxHashRLP)
-RLP Encoding for Transaction Hash
+### RLP Encoding for Transaction Hash
 To make a transaction signature of the fee payer, RLP serialization should be done like the following:
 
 txSignatures (a single signature) = [[v, r, s]]
 txSignatures (two signatures) = [[v1, r1, s1], [v2, r2, s2]]
 TxHashRLP = type + encode([nonce, gasPrice, gas, to, value, from, input, humanReadable, codeFormat, txSignatures])
 TxHash = keccak256(TxHashRLP)
-RLP Encoding (Example)
+### RLP Encoding (Example)
 The following shows the result of RLP serialization and the transaction object:
 
 ChainID 0x1
@@ -557,7 +557,7 @@ SenderTxHash e983f38b814891990f3ca57028c2230dc7e907eb313c827e7c99fadcc9b4c58b
     HumanReadable: true
     CodeFormat:    CodeFormatEVM
     Hex:           28f9027d8204d219830f4240947b65b75d204abed71587c9e519a89277766ee1d00a94a94f5374fce5edbc8e2a8697c15331677e6ebf0bb901fe608060405234801561001057600080fd5b506101de806100206000396000f3006080604052600436106100615763ffffffff7c01000000000000000000000000000000000000000000000000000000006000350416631a39d8ef81146100805780636353586b146100a757806370a08231146100ca578063fd6b7ef8146100f8575b3360009081526001602052604081208054349081019091558154019055005b34801561008c57600080fd5b5061009561010d565b60408051918252519081900360200190f35b6100c873ffffffffffffffffffffffffffffffffffffffff60043516610113565b005b3480156100d657600080fd5b5061009573ffffffffffffffffffffffffffffffffffffffff60043516610147565b34801561010457600080fd5b506100c8610159565b60005481565b73ffffffffffffffffffffffffffffffffffffffff1660009081526001602052604081208054349081019091558154019055565b60016020526000908152604090205481565b336000908152600160205260408120805490829055908111156101af57604051339082156108fc029083906000818181858888f193505050501561019c576101af565b3360009081526001602052604090208190555b505600a165627a7a72305820627ca46bb09478a015762806cc00c431230501118c7c26c30ac58c4e09e51c4f00290180f845f84325a0fcd107738fb47750ba727610aefd6d5f51ac8163d62ce500e7ab7e15defe7088a0383d68220d0266490ea4173c1d7847f22fcbe22f8c8125e1c0589189845c902a
-RPC Output (Example)
+### RPC Output (Example)
 The following shows a transaction object returned via JSON RPC.
 
 {
@@ -590,7 +590,7 @@ The following shows a transaction object returned via JSON RPC.
   "typeInt": 40,
   "value": "0x0"
 }
-TxTypeSmartContractExecution
+## TxTypeSmartContractExecution
 TxTypeSmartContractExecution executes a smart contract with the given data in input. TxTypeSmartContractExecution is accepted only if to is a smart contract account. To transfer tokens to an externally owned account, use TxTypeValueTransfer instead. The following changes will be made by this transaction type.
 
 If to is a smart contract account, the code is executed based on input. Otherwise, this transaction will be rejected.
@@ -601,7 +601,7 @@ The sender's nonce increases by one.
 
 If value was provided, value KLAY is transferred from the sender to the to smart contract. The contract should have a payable fallback function to receive the tokens.
 
-Attributes
+### Attributes
 Attribute
 
 Type
@@ -662,27 +662,27 @@ txSignatures
 
 The sender's signatures. For more details, see Signature Validation of Transactions.
 
-RLP Encoding for Signature
+### RLP Encoding for Signature
 To make a signature of this transaction type, RLP serialization should be done like the following:
 
 SigRLP = encode([encode([type, nonce, gasPrice, gas, to, value, from, input]), chainid, 0, 0])
 SigHash = keccak256(SigRLP)
 Signature = sign(SigHash, <private key>)
-RLP Encoding for SenderTxHash
+### RLP Encoding for SenderTxHash
 To make a SenderTxHash, RLP serialization should be done like the following:
 
 txSignatures (a single signature) = [[v, r, s]]
 txSignatures (two signatures) = [[v1, r1, s1], [v2, r2, s2]]
 SenderTxHashRLP = type + encode([nonce, gasPrice, gas, to, value, from, input, txSignatures])
 SenderTxHash = keccak256(SenderTxHashRLP)
-RLP Encoding for Transaction Hash
+### RLP Encoding for Transaction Hash
 To make a transaction hash, RLP serialization should be done like the following:
 
 txSignatures (a single signature) = [[v, r, s]]
 txSignatures (two signatures) = [[v1, r1, s1], [v2, r2, s2]]
 TxHashRLP = type + encode([nonce, gasPrice, gas, to, value, from, input, txSignatures])
 TxHash = keccak256(TxHashRLP)
-RLP Encoding (Example)
+### RLP Encoding (Example)
 The following shows the result of RLP serialization and the transaction object:
 
 ChainID 0x1
@@ -708,7 +708,7 @@ SenderTxHash 23bb192bd58d56527843eb63225c5213f3aded95e4c9776f1ff0bdd8ee0b6826
     Signature:     [{"V":"0x26","R":"0xe4276df1a779274fbb04bc18a0184809eec1ce9770527cebb3d64f926dc1810b","S":"0x4103b828a0671a48d64fe1a3879eae229699f05a684d9c5fd939015dcdd9709b"}]
     Data:          363335333538366230303030303030303030303030303030303030303030303062633539353166303535613835663431613362363266643666363861623764653736643239396232
     Hex:           30f89f8204d219830f4240947b65b75d204abed71587c9e519a89277766ee1d00a94a94f5374fce5edbc8e2a8697c15331677e6ebf0ba46353586b000000000000000000000000bc5951f055a85f41a3b62fd6f68ab7de76d299b2f845f84326a0e4276df1a779274fbb04bc18a0184809eec1ce9770527cebb3d64f926dc1810ba04103b828a0671a48d64fe1a3879eae229699f05a684d9c5fd939015dcdd9709b
-RPC Output (Example)
+### RPC Output (Example)
 The following shows a transaction object returned via JSON RPC.
 
 {
@@ -739,7 +739,7 @@ The following shows a transaction object returned via JSON RPC.
   "typeInt": 48,
   "value": "0xa"
 }
-TxTypeAccountUpdate
+## TxTypeAccountUpdate
 TxTypeAccountUpdate updates the key of the given account. The following changes will apply by this transaction type.
 
 The sender's balance decreases by the amount of the transaction fee.
@@ -750,7 +750,7 @@ The account's key is updated with key.
 
 Once this type of transaction is executed, transactions sent from the account afterward will be validated with the new key.
 
-Attributes
+### Attributes
 Attribute
 
 Type
@@ -799,27 +799,27 @@ txSignatures
 
 The sender's signatures. For more details, see Signature Validation of Transactions.
 
-RLP Encoding for Signature
+### RLP Encoding for Signature
 To make a signature of this transaction type, RLP serialization should be done like the following:
 
 SigRLP = encode([encode([type, nonce, gasPrice, gas, from, rlpEncodedKey]), chainid, 0, 0])
 SigHash = keccak256(SigRLP)
 Signature = sign(SigHash, <private key>)
-RLP Encoding for SenderTxHash
+### RLP Encoding for SenderTxHash
 To make a SenderTxHash, RLP serialization should be done like the following:
 
 txSignatures (a single signature) = [[v, r, s]]
 txSignatures (two signatures) = [[v1, r1, s1], [v2, r2, s2]]
 SenderTxHashRLP = type + encode([nonce, gasPrice, gas, from, rlpEncodedKey, txSignatures])
 SenderTxHash = keccak256(SenderTxHashRLP)
-RLP Encoding for Transaction Hash
+### RLP Encoding for Transaction Hash
 To make a transaction hash, RLP serialization should be done like the following:
 
 txSignatures (a single signature) = [[v, r, s]]
 txSignatures (two signatures) = [[v1, r1, s1], [v2, r2, s2]]
 TxHashRLP = type + encode([nonce, gasPrice, gas, from, rlpEncodedKey, txSignatures])
 TxHash = keccak256(TxHashRLP)
-RLP Encoding (Example)
+### RLP Encoding (Example)
 The following shows the result of RLP serialization and the transaction object:
 
 ChainID 0x1
@@ -843,7 +843,7 @@ SenderTxHash 8c70627d6b637c7d033ead083fc5e43e5cad10c704a86dd9bda7ac104a0e5ad0
     Key:           AccountKeyPublic: S256Pubkey:{"x":"0x3a514176466fa815ed481ffad09110a2d344f6c9b78c1d14afc351c3a51be33d","y":"0x8072e77939dc03ba44790779b7a1025baf3003f6732430e20cd9b76d953391b3"}
     Signature:     [{"V":"0x25","R":"0xf7d479628f05f51320f0842193e3f7ae55a5b49d3645bf55c35bee1e8fd2593a","S":"0x4de8eab5338fdc86e96f8c49ed516550f793fc2c4007614ce3d2a6b33cf9e451"}]
     Hex:           20f8888204d219830f424094a94f5374fce5edbc8e2a8697c15331677e6ebf0ba302a1033a514176466fa815ed481ffad09110a2d344f6c9b78c1d14afc351c3a51be33df845f84325a0f7d479628f05f51320f0842193e3f7ae55a5b49d3645bf55c35bee1e8fd2593aa04de8eab5338fdc86e96f8c49ed516550f793fc2c4007614ce3d2a6b33cf9e451
-RPC Output (Example)
+### RPC Output (Example)
 The following shows a transaction object returned via JSON RPC.
 
 {
@@ -872,7 +872,7 @@ The following shows a transaction object returned via JSON RPC.
   "type": "TxTypeAccountUpdate",
   "typeInt": 32
 }
-TxTypeCancel
+## TxTypeCancel
 TxTypeCancel cancels the execution of the transaction with the same nonce in the transaction pool. This transaction type is useful when a submitted transaction seems unprocessed for a certain amount of time. There are several cases that a transaction seems unprocessed: 1. The transaction was lost somewhere and did not reach any of the consensus nodes. 2. The transaction has not been processed yet in any of the consensus nodes. 3. The transaction was processed, but the block containing the transaction has not been received.
 
 From the client side, it is very hard to figure out the exact reason because to figure out the reason, it is required to look inside all the consensus nodes. However, connecting to any of the consensus nodes from the public is prohibited. Under this situation, in typical blockchain platforms, the user often submits another transaction with a higher gas price to replace the old transaction. However, because the gas price is fixed in Klaytn, replacing the old transaction with a higher gas price is not applicable.
@@ -887,7 +887,7 @@ Note that the TxTypeCancel transaction is the only transaction that is capable o
 
 The following changes can occur by this transaction type. 1. The sender's balance decreases by the amount of the transaction fee. 2. The sender's nonce increases by one.
 
-Attributes
+### Attributes
 Attribute
 
 Type
@@ -938,27 +938,27 @@ If no same nonce, this transaction is just inserted as a normal transaction.
 
 The cancel transaction is not replaced with other transaction types.
 
-RLP Encoding for Signature
+### RLP Encoding for Signature
 To make a transaction signature, RLP serialization should be done like the following:
 
 SigRLP = encode([encode([type, nonce, gasPrice, gas, from]), chainid, 0, 0])
 SigHash = keccak256(SigRLP)
 Signature = sign(SigHash, <private key>)
-RLP Encoding for SenderTxHash
+### RLP Encoding for SenderTxHash
 To make a SenderTxHash, RLP serialization should be done like the following:
 
 txSignatures (a single signature) = [[v, r, s]]
 txSignatures (two signatures) = [[v1, r1, s1], [v2, r2, s2]]
 SenderTxHashRLP = type + encode([nonce, gasPrice, gas, from, txSignatures])
 SenderTxHash = keccak256(SenderTxHashRLP)
-RLP Encoding for Transaction Hash
+### RLP Encoding for Transaction Hash
 To make a transaction hash, RLP serialization should be done like the following:
 
 txSignatures (a single signature) = [[v, r, s]]
 txSignatures (two signatures) = [[v1, r1, s1], [v2, r2, s2]]
 TxHashRLP = type + encode([nonce, gasPrice, gas, from, txSignatures])
 TxHash = keccak256(TxHashRLP)
-RLP Encoding (Example)
+### RLP Encoding (Example)
 The following shows the result of RLP serialization and the transaction object:
 
 ChainID 0x1
@@ -981,7 +981,7 @@ SenderTxHash 10d135d590cb587cc45c1f94f4a0e3b8c24d24a6e4243f09ca395fb4e2450413
     GasLimit:      0xf4240
     Signature:     [{"V":"0x25","R":"0xfb2c3d53d2f6b7bb1deb5a09f80366a5a45429cc1e3956687b075a9dcad20434","S":"0x5c6187822ee23b1001e9613d29a5d6002f990498d2902904f7f259ab3358216e"}]
     Hex:           38f8648204d219830f424094a94f5374fce5edbc8e2a8697c15331677e6ebf0bf845f84325a0fb2c3d53d2f6b7bb1deb5a09f80366a5a45429cc1e3956687b075a9dcad20434a05c6187822ee23b1001e9613d29a5d6002f990498d2902904f7f259ab3358216e
-RPC Output (Example)
+### RPC Output (Example)
 The following shows a transaction object returned via JSON RPC.
 
 {
@@ -1009,10 +1009,10 @@ The following shows a transaction object returned via JSON RPC.
   "type": "TxTypeCancel",
   "typeInt": 56
 }
-TxTypeChainDataAnchoring
+## TxTypeChainDataAnchoring
 TxTypeChainDataAnchoringTransaction is a transaction type that will be used by servicechains. Servicechains periodically send a transaction of this type onto the Klaytn mainchain in order to prove the data integrity of servicechains. For more details about servicechains, see Service Chain Network. Submitting transactions of this type via RPC is prohibited. Current implementation uses private p2p channels to send a TxTypeChainDataAnchoring transaction for security reasons. This transaction type does not change the state of the Klaytn blockchain except the sender's nonce being increased by one.
 
-Attributes
+### Attributes
 Attribute
 
 Type
@@ -1061,27 +1061,27 @@ txSignatures
 
 The sender's signatures. For more details, see Signature Validation of Transactions.
 
-RLP Encoding for Signature
+### RLP Encoding for Signature
 To make a signature of this transaction type, RLP serialization should be done like the following:
 
 SigRLP = encode([encode([type, nonce, gasPrice, gas, from, anchoredData]), chainid, 0, 0])
 SigHash = keccak256(SigRLP)
 Signature = sign(SigHash, <private key>)
-RLP Encoding for SenderTxHash
+### RLP Encoding for SenderTxHash
 To make a SenderTxHash, RLP serialization should be done like the following:
 
 txSignatures (a single signature) = [[v, r, s]]
 txSignatures (two signatures) = [[v1, r1, s1], [v2, r2, s2]]
 SenderTxHashRLP = type + encode([nonce, gasPrice, gas, from, anchoredData, txSignatures])
 SenderTxHash = keccak256(SenderTxHashRLP)
-RLP Encoding for Transaction Hash
+### RLP Encoding for Transaction Hash
 To make a transaction hash, RLP serialization should be done like the following:
 
 txSignatures (a single signature) = [[v, r, s]]
 txSignatures (two signatures) = [[v1, r1, s1], [v2, r2, s2]]
 TxHashRLP = type + encode([nonce, gasPrice, gas, from, anchoredData, txSignatures])
 TxHash = keccak256(TxHashRLP)
-RLP Encoding (Example)
+### RLP Encoding (Example)
 The following shows the result of RLP serialization and the transaction object:
 
 ChainID 0x1
@@ -1105,7 +1105,7 @@ SenderTxHash 4aad85735e777795d24aa3eab51be959d8ebdf9683083d85b66f70b7170f2ea3
     Signature:     [{"V":"0x25","R":"0xe58b9abf9f33a066b998fccaca711553fb4df425c9234bbb3577f9d9775bb124","S":"0x2c409a6c5d92277c0a812dd0cc553d7fe1d652a807274c3786df3292cd473e09"}]
     Hex:           48f9010e8204d219830f424094a94f5374fce5edbc8e2a8697c15331677e6ebf0bb8a8f8a6a00000000000000000000000000000000000000000000000000000000000000000a00000000000000000000000000000000000000000000000000000000000000001a00000000000000000000000000000000000000000000000000000000000000002a00000000000000000000000000000000000000000000000000000000000000003a0000000000000000000000000000000000000000000000000000000000000000405f845f84325a0e58b9abf9f33a066b998fccaca711553fb4df425c9234bbb3577f9d9775bb124a02c409a6c5d92277c0a812dd0cc553d7fe1d652a807274c3786df3292cd473e09
     AnchoredData:  f8a6a00000000000000000000000000000000000000000000000000000000000000000a00000000000000000000000000000000000000000000000000000000000000001a00000000000000000000000000000000000000000000000000000000000000002a00000000000000000000000000000000000000000000000000000000000000003a0000000000000000000000000000000000000000000000000000000000000000405
-RPC Output (Example)
+### RPC Output (Example)
 The following shows a transaction object returned via JSON RPC.
 
 {
