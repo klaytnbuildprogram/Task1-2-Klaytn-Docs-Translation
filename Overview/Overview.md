@@ -7,53 +7,29 @@ Document
 
 Description
 
-​Klaytn Vision​
+​Klaytn Vision​ Explains the vision of Klaytn and the strategies.
 
-Explains the vision of Klaytn and the strategies.
+​Klaytn World​ Describes the Klaytn world including the Klaytn blockchain platform, Enterprise Proxy (EP), and token economy.
 
-​Klaytn World​
+​Getting Started​ Provides guidelines for getting started with Klaytn.
 
-Describes the Klaytn world including the Klaytn blockchain platform, Enterprise Proxy (EP), and token economy.
+​Installation & Operation​ Illustrates how to set up and operate Core Cell (CC), Endpoint Node (EN), and Service Chain.
 
-​Getting Started​
+​Download​ Shows download links for the latest Klaytn packages.
 
-Provides guidelines for getting started with Klaytn.
+​Klaytn API​ Presents APIs for node management and application development.
 
-​Installation & Operation​
+​Klaytn SDK​ Introduces Klaytn software development kit (SDK).
 
-Illustrates how to set up and operate Core Cell (CC), Endpoint Node (EN), and Service Chain.
+​Klaytn Toolkit​ Introduces developer tools for Klaytn.
 
-​Download​
+​Tutorials​ Demonstrates Klaytn-interacting application development tutorials.
 
-Shows download links for the latest Klaytn packages.
+​Roadmap​ Describes the roadmap for Klaytn.
 
-​Klaytn API​
+​FAQ​ Provides a list of frequently asked questions (FAQs).
 
-Presents APIs for node management and application development.
-
-​Klaytn SDK​
-
-Introduces Klaytn software development kit (SDK).
-
-​Klaytn Toolkit​
-
-Introduces developer tools for Klaytn.
-
-​Tutorials​
-
-Demonstrates Klaytn-interacting application development tutorials.
-
-​Roadmap​
-
-Describes the roadmap for Klaytn.
-
-​FAQ​
-
-Provides a list of frequently asked questions (FAQs).
-
-​Glossary​
-
-Enumerates terminologies used within KlaytnDocs.
+​Glossary​ Enumerates terminologies used within KlaytnDocs.
 
 Disclaimer: Some notes are derived from Ethereum documents as the Klaytn source code was initiated from Ethereum’s Byzantium version. As Klaytn develops further, KlaytnDocs and the source code will continue to be updated. Reference websites are as follows:
 
