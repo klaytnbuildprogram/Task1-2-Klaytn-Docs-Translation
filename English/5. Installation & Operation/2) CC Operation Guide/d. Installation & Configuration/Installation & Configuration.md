@@ -1,5 +1,4 @@
-Installation & Configuration
-============================
+# Installation & Configuration
 This chapter describes how to install a CN/PN from Linux binaries or an RPM package.
 
 ​Prerequisites​
