@@ -26,7 +26,7 @@ Let's skim though how fee delegation works.
 
 `Sender` always should sign the transaction before sending a transaction.
 
-To sign a transaction, use [signTransaction](../../sdk/caverjs/caver.klay.accounts.md#signtransaction) which signs a transaction with given private key.
+To sign a transaction, use [signTransaction](https://docs.klaytn.com/sdk/caverjs/caver.klay.accounts#signtransaction) which signs a transaction with given private key.
 
 ```
 // using the event emitter
@@ -75,7 +75,7 @@ Let's write a simple server and client using above fee delegation code.
 
 ### 3.1 Environment setup
 
-We will use `npm` and [caver-js](../../sdk/caverjs/caverjs.md) to setup environment for this example as below.
+We will use `npm` and [caver-js](https://docs.klaytn.com/sdk/caverjs) to setup environment for this example as below.
 
 ```
 $ mkdir example

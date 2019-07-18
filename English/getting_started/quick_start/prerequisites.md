@@ -7,7 +7,7 @@ $ mkdir $HOME/klaytn
 
 > You need `npm` and `node.js` installed to proceed. Please refer to [get-npm](https://www.npmjs.com/get-npm) and [node.js](https://nodejs.org/en/) for installation on your system.
 
-[caver-js](../../sdk/caverjs/caverjs.md) is a JSON RPC framework for the Klaytn network (equivalent to web3.js in Ethereum).
+[caver-js](https://docs.klaytn.com/sdk/caverjs) is a JSON RPC framework for the Klaytn network (equivalent to web3.js in Ethereum).
 Before installing caver-js, you must generate `package.json` file via `npm init` command, and then type `npm install caver-js` to install caver-js.
 
 ```shell
