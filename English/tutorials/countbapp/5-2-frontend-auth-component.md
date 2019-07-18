@@ -66,7 +66,7 @@ cf) Items in session storage disappear when user close the browser tab.
 Line 4: `this.reset()`  
 It reset current component's state to initial state to clear your input on which private key is typed.  
 
-For further information about `privateKeyToAccount` API of caver-js, see [caver.klay.accounts.privateKeyToAccount](../../sdk/caverjs/caver.klay.accounts.md#privatekeytoaccount)
+For further information about `privateKeyToAccount` API of caver-js, see [caver.klay.accounts.privateKeyToAccount](https://docs.klaytn.com/sdk/caverjs/caver.klay.accounts#privatekeytoaccount)
 
 ### 4) `Auth` component feature: User can import keystore file and input password to login.
 `handleImport`, `handleLogin` methods are needed to login with keystore + password
@@ -151,7 +151,7 @@ handleLogin = () => {
 }
 ```
 
-For further information about decrypting keystore file with password, see [caver.klay.accounts.decrypt](../../sdk/caverjs/caver.klay.accounts.md#decrypt)  
+For further information about decrypting keystore file with password, see [caver.klay.accounts.decrypt](https://docs.klaytn.com/sdk/caverjs/caver.klay.accounts#decrypt)  
 
 ### 5) `Auth` component feature: User can logout, remove wallet instance information from browser.
 'logout' means remove wallet instance from browser and caver.  
@@ -171,4 +171,4 @@ removeWallet = () => {
 }
 ```
 
-For further information about clearing a wallet instance from caver-js, see [caver.klay.accounts.wallet.clear](../../sdk/caverjs/caver.klay.accounts.md#wallet-clear)  
+For further information about clearing a wallet instance from caver-js, see [caver.klay.accounts.wallet.clear](https://docs.klaytn.com/sdk/caverjs/caver.klay.accounts#wallet-clear)  

@@ -53,7 +53,7 @@ cf) caver-js is a RPC library which makes a connection to Klaytn node, interacti
 `'App.js'` is root component file for overall components. It renders two pages depending on user's login status. Each page has functions that interact with contract. You must add wallet instance to caver to send transactions to blockchain. Let’s briefly look at the code for overview. 
 
 
-cf. caver-js(or `cav` in the code) is a library for interacting with Klaytn blockchain. We are going to learn in detail in the next chapter - [F-1. Connect contract to frontend](./7-1-feedpage-connect-contract.md)
+cf. caver-js(or `cav` in the code) is a library for interacting with Klaytn blockchain. We are going to learn in detail in the next chapter - [7-1. Connect contract to frontend](./7-1-feedpage-connect-contract.md)
 
 ```js
 // src/App.js
@@ -177,7 +177,7 @@ export const removeWallet = () => (dispatch) => {
   })
 }
 ```
-cf. For further information about caver's `privateKeyToAccount` API, see [caver.klay.accounts.privateKeyToAccount](../../sdk/caverjs/caver.klay.accounts.md#privatekeytoaccount).
+cf. For further information about caver's `privateKeyToAccount` API, see [caver.klay.accounts.privateKeyToAccount](https://docs.klaytn.com/sdk/caverjs/caver.klay.accounts#privatekeytoaccount).
 
 **3. Render the page**
 Redux will initialize `isLoggedIn` state to true or false, depending on whether walletInstance exists in the session storage

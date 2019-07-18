@@ -219,7 +219,7 @@ For example, we should have a method which retrieves `count` variable's value an
 
 ### 3) How to interact with contract?
 To interact with the contract, we need a contract instance with deployed contract.  
-The contract instance can be made through `caver.klay.Contract(ABI, contractAddress)` API of caver-js. For more details, see [caver.klay.Contract](../../sdk/caverjs/caver.klay.Contract.md#new-contract)  
+The contract instance can be made through `caver.klay.Contract(ABI, contractAddress)` API of caver-js. For more details, see [caver.klay.Contract](https://docs.klaytn.com/sdk/caverjs/caver.klay.Contract#new-contract)  
 
 `Contract ABI`(Application Binary Interface) informs how to call contract method to caver, so caver easily call contrcat method,  
 for example)  
@@ -279,7 +279,7 @@ We can fetch `count` storage variable's value by calling `this.countContract.meh
 We can fetch also `lastParticipant` storage variable's value by calling `this.countContract.mehotds.lastParticipant().call()`.  
 After fetching those variable's value, set state properties `count`, `lastParticipant` to responsed value from contract function call.  
 
-For further information about calling contract methods, see [caver.klay.Contract](../../sdk/caverjs/caver.klay.Contract.md#methods)  
+For further information about calling contract methods, see [caver.klay.Contract](https://docs.klaytn.com/sdk/caverjs/caver.klay.Contract#methods)  
 
 ```js
 componentDidMount() {

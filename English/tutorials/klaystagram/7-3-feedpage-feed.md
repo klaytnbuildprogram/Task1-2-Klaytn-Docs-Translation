@@ -8,7 +8,7 @@
 4. Show data in component: `Feed` component
 
 ### 1) `Feed` component's role  
-In chapter [E. Write Klaystagram smart contract](./4-write-smart-contract.md),  we wrote `PhotoData` struct, and located it inside `_photoList` mapping. Feed component's role is as follows:
+In chapter [4. Write Klaystagram smart contract](./4-write-smart-contract.md),  we wrote `PhotoData` struct, and located it inside `_photoList` mapping. Feed component's role is as follows:
 1. Read `PhotoData` via calling Klaystagram contract method (`redux/actions/photos.js`)
 2. Show `PhotoData`(feed) with its owner information (`components/Feed.js`)
 

@@ -36,9 +36,9 @@ UTC--2019-06-24T11-20-15.590879000Z--75a59b94889a05c03c66c3c84e9d2f8308ca4abd
 # Unlocking the Klaytn Account
 
 To unlock the created account, execute the following command. It unlocks the account for 300 seconds.  
-**Note**: If you want to manually set the unlock duration, refer to this [link](../../api/management/personal.md#personal_unlockaccount).  
+**Note**: If you want to manually set the unlock duration, refer to this [link](https://docs.klaytn.com/api/management/personal#personal_unlockaccount).  
 **`WARNING`**: Unlocking an account could be very dangerous if not done carefully. There are chances that your tokens will be taken away by hackers if your EN is hacked by a hacker.
-To use safer method, refer to this [deployment guide using private key](../../tutorials/countapp/6-deploy-contract.md#deploy-method-1-by-private-key)
+To use safer method, refer to this [deployment guide using private key](https://docs.klaytn.com/tutorials/countapp/6-deploy-contract#deploy-method-1-by-private-key)
 
 ```shell
 > personal.unlockAccount('75a59b94889a05c03c66c3c84e9d2f8308ca4abd') # account address to unlock
@@ -59,7 +59,7 @@ You can run the KLAY Faucet once every 24 hours.
 To see the balance of your account, execute the following command.
 
 The default unit is peb (1 KLAY = 10<sup>^18</sup> peb).
-More information about KLAY units can be found at [Units of KLAY](../../klaytn/design/computation/exec_model.md#units-of-klay).
+More information about KLAY units can be found at [Units of KLAY](https://docs.klaytn.com/klaytn/design/computation/exec_model#units-of-klay).
 ```shell
 > klay.getBalance('75a59b94889a05c03c66c3c84e9d2f8308ca4abd') # enter your account address
 1e+21  # 1000 KLAY
