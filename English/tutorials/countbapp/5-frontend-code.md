@@ -186,7 +186,7 @@ It checks there is a `walletInstance` session in browser's sessionStorage.
 Otherwise, `walletInstance` session may exist as JSON string, if so, try add wallet instance to caver.  
 You can add wallet instance to caver through `cav.klay.accounts.wallet.add(JSON.parse(walletFromSession))`.  
 For further information related `caver.klay.accounts.wallet.add`, see
-[caver.klay.accounts.wallet.add](../../sdk/caverjs/caver.klay.accounts.md#wallet-add)
+[caver.klay.accounts.wallet.add](https://docs.klaytn.com/sdk/caverjs/caver.klay.accounts#wallet-add)
 
 cf) `JSON.parse` is needed since `walletInstance` session is stored as JSON string.
 
