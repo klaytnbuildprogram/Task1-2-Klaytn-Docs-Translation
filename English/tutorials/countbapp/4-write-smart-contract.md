@@ -1,18 +1,18 @@
 ## 4. Writing smart contract (Count.sol)
 
 ### 1) Background
-We will make a super simple contract called "Count" contract.  
+We will make a super simple contract called "Count".  
 
 a. There would be just one storage variable called `count`.  
-b. User can increase `count` variable by 1 or decrease it by 1. So there would be two functions, `plus` function which increases `count` variable by 1, and `minus` function which decreases `count` variable by 1. That's all!
+b. Users can increase `count` variable by 1 or decrease it by 1. So there would be two functions, `plus` function which increases `count` variable by 1, and `minus` function which decreases `count` variable by 1. That's all!
 
-### 2) Setup variable
-Before setting variable, we should specify solidity version. Let's use 0.4.24 stable version.
+### 2) Define the variable
+Before setting a variable, we should specify the solidity version. Let's use 0.4.24 stable version.
 ```solidity
 pragma solidity 0.4.24; // Specify solidity's version
 ```
 
-Then we should name our contract to "Count".
+Then we will name our contract "Count".
 ```solidity
 pragma solidity 0.4.24;
 
@@ -21,7 +21,7 @@ contract Count { // set contract names to "Count"
 }
 ```
 
-We need to set variable `count` as `uint`(unsigned integer) type, and initial value of it would be 0.
+We need to declare the variable `count` as `uint`(unsigned integer) type, and initialize it to be 0.
 
 ```solidity
 pragma solidity 0.4.24;
@@ -31,10 +31,10 @@ contract Count {
 }
 ```
 
-### 3) Setup functions
-We need two functions, `plus`, `minus`.  each functions's role is like below:  
-`plus` - increase `count` storage variable by 1. (count = count + 1)  
-`minus` - decrease `count` storage variable by 1. (count = count - 1)  
+### 3) Define functions
+We need two functions, `plus` and `minus`. Each functions's role is:  
+`plus` - increase the `count` by 1. (count = count + 1)  
+`minus` - decrease the `count` by 1. (count = count - 1)  
 
 
 ```solidity
@@ -53,18 +53,18 @@ contract Count {
 }
 ```
 
-*Things to notice.*  
-To enable the user to call a functions freely, function should be declared as a `public` function like below:
+*NOTE*  
+To allow the functions to be called outside the contract, functions should be declared as `public`.
 
 ```solidity
 function plus() public { … }
 ```
 
-### 4) Let's do more..
-Our contract is simple, so we want to add a more feature for it. How about a feature tracking a last participant's wallet address?
+### 4) Let's do something more.
+We want to add one more feature. How about remembering the last participant's wallet address?
 
-#### 4-1) Setup variable
-So we will have a variable, `lastParticipant` as `address` type like below:  
+#### 4-1) Add a variable
+So we will have a variable, `lastParticipant` as `address` type:  
 `address public lastParticipant;`
 
 ```solidity
@@ -84,8 +84,8 @@ contract Count {
 }
 ```
 
-#### 4-2) Setup functions
-To track last particpant's address, we should add a logic storing it to `lastParticipant` variable like below:  
+#### 4-2) Update functions
+To track the last particpant's address, we store the address to `lastParticipant` like the below:  
 
 ```solidity
 pragma solidity 0.4.24;
@@ -106,16 +106,18 @@ contract Count {
 }
 ```
 
-*Things to notice.*  
+*NOTE*  
 1) `public`
-If you declare variable or function as `public`,  you can access this variable outer blockchain,  
-for example, you can access this variable or function in your frontend application.  
-You will see how to interact with contract public method, variables soon. (6-3 frontend-count-component.md)
+If you declare a variable or a function as `public`,  you can access them outside the blockchain,
+i.e., you can access this variable or function from your frontend application.
+You will see how to interact with the contract public methods and variables from the frontend application in the [Count componenent](5-3-frontend-count-component.md) chapter.
 
 2) `msg.sender`  
-`msg.sender` is the person who currently connecting with the contract.  
-To get the address of transaction sender we can use `msg.sender` variable.
+`msg.sender` is the address that initiated the current transaction.  
+To get the address of the transaction sender we can use `msg.sender` variable.
+
 ```solidity
 lastParticipant = msg.sender;
 ```
-This line will make `lastParticipant`'s value to `msg.sender`
+
+This line will make the `lastParticipant` to have the `msg.sender`.

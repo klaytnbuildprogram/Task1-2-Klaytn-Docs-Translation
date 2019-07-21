@@ -79,8 +79,8 @@ export default BlockNumber
 
 ```
 ### 2) BlockNumber component's role
-`'BlockNumber'` component's role is showing klaytn's current block number.  
-It requests current block number to klaytn node by calling caver-js's API `caver.klay.getBlockNumber()` method per 1 second. When response having current block number comes from klaytn node, it re-renders DOM through `this.setState({ currentBlockNumber: blockNumber })`.
+`'BlockNumber'` component's role is showing Klaytn's current block number.  
+It requests the current block number to the Klaytn node by calling `caver.klay.getBlockNumber()` every second. This componenet re-renders DOM through `this.setState({ currentBlockNumber: blockNumber })` upon receiving the response.
 
 ### 3) `getBlockNumber` method in detail
 ```js
@@ -95,13 +95,11 @@ getBlockNumber = async () => {
 }
 ```
 
-Above code, `getBlockNumber` method is declared as async function, declaring function as async can make dealing with asyncrhnous value(promise) easy. Since `cav.klay.getBlockNumber` returns promise, it can be handled easily by append `await` keyword.  
+`getBlockNumber` method is declared as an async function. Declaring a function as async makes dealing with asyncrhnous value(promise) easy. `cav.klay.getBlockNumber` returns a promise, and the result can be handled easily by appending `await` keyword.  
 
 For further information about async-await keyword, see javascript's MDN site https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function
 
-After assigning current block number returned from `cav.klay.getBlockNumber()` to `blockNumber` constant variable, we use `this.setState` API in React. `this.setState({ currentBlockNumber: blockNumber })` literally set state's property `currentBlockNumber` to `blockNumber`'s value. `this.setState(nextState)` API changes current state, and re-render component.  
-
-As a result, in `render` lifecycle, `this.state.currentBlockNumber` would be populated by current block number responded from klaytn node through `caver.klay.blockNumber()`.
+After assigning the current block number returned from `cav.klay.getBlockNumber()` to `blockNumber`, we call `this.setState` React API. `this.setState({ currentBlockNumber: blockNumber })` literally sets the state property `currentBlockNumber` to `blockNumber`. `this.setState(nextState)` updates the current state and re-renders the component.  
 
 For further detail about React's this.setState and rendering mechanism, visit React's official site https://reactjs.org/docs/state-and-lifecycle.html
 
@@ -114,7 +112,7 @@ componentDidMount() {
   this.intervalId = setInterval(this.getBlockNumber, 1000)
 }
 ```
-Since we want our tutorial app to show current block number lively, we should call `getBlockNumber` per 1 seconds(1000ms). We can use `setInterval` function to do this. `setInterval(func, delay)` call function intervally. Since we will call `this.getBlockNumber` method per 1000ms, `setInterval(this.getBlockNumber, 1000)` is needed. And this `setInterval` function returns interval id which will be used to clear this interval, so we store it to `this.intervalId` variable.
+Since we want our tutorial app to show current block number lively, we call `getBlockNumber` every second (1000ms). We can use `setInterval` function to do this. `setInterval(func, delay)` calls the given function repeatedly with given delay. `setInterval` function returns an interval id which will be used to clear this interval later, so we store it to `this.intervalId` variable.
 
 ```js
 /**
@@ -126,4 +124,4 @@ componentWillUnmount() {
 }
 ```
 
-When our component will unmount, we don't need to call `this.getBlockNumber` function intervally, so remove this interval by `clearInterval(this.intervalId)`.
+When the component unmounts, stop getting the current block number by removing the interval.

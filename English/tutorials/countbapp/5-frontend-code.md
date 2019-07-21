@@ -1,10 +1,10 @@
 ## 5. Frontend code overview
 
-1) `src/index.js` - index point of our app  
+1) `src/index.js` - Entry point of our app  
 2) `public/index.html` - index.html  
-3) `src/routes.js` - route definition  
+3) `src/routes.js` - Contains route definition  
 4) `src/App.js` - Root component of our app  
-5) `src/klaytn/caver.js` - Make a connection with klaytn node
+5) `src/klaytn/caver.js` - Makes a connection with a Klaytn node
 
 ### 1) `src/index.js`:  
 ```js
@@ -30,7 +30,7 @@ if (module.hot) {
   })
 }
 ```
-`'index.js'` is main javascript file for our tutorial app. Literally, it is the 'index' point of our app.
+`'index.js'` is main javascript file for our tutorial app. It is the entry point of our app.
 
 It uses 'react-dom' library to render a React element into the DOM in the supplied container('#root') and return a reference to the component. In short, through 'react-dom' our tutorial app's DOM will be populated to `<div id="root"></div>` in `public/index.html` file.
 
@@ -64,7 +64,7 @@ It uses 'react-dom' library to render a React element into the DOM in the suppli
 
 ```
 
-`index.html` is HTML file for rendering our tutorial app.
+`index.html` is a HTML file for rendering our tutorial app.
 
 For further information, visit React official site https://reactjs.org/docs/react-dom.html#render
 
@@ -87,8 +87,8 @@ const renderRoutes = rootComponent => (
 export default renderRoutes
 ```
 
-`'routes.js'` contains route definition for our tutorial app.  
-As a root component, `'App.js'` component renders children component defined in `'route.js'` file.  
+`'routes.js'` contains the route definition for our tutorial app.  
+As a root component, `'App.js'` component renders child components defined in `'route.js'` file.  
 By above code, `'Count'` component would be rendered as a children of rootComponent when browser's URL path is `"/"`.
 
 For further information, visit React router github https://github.com/ReactTraining/react-router/blob/v3.2.1/docs/API.md
@@ -140,7 +140,7 @@ export default App
 
 ```
 
-`'App.js'` is root component of our tutorial app.
+`'App.js'` is the root component of our tutorial app.
 
 
 ```js
@@ -180,15 +180,15 @@ componentWillMount() {
 }
 ```
 
-There are `componentWillMount` life cycle on App component.  
-It checks there is a `walletInstance` session in browser's sessionStorage.  
+`componentWillMount` checks if there is a `walletInstance` session in the browser's sessionStorage.  
 `walletInstance` session may not exist if you have never logged in our tutorial app.  
-Otherwise, `walletInstance` session may exist as JSON string, if so, try add wallet instance to caver.  
-You can add wallet instance to caver through `cav.klay.accounts.wallet.add(JSON.parse(walletFromSession))`.  
+Otherwise, `walletInstance` session will exist as a JSON string,
+if so, it attempts to add the wallet instance to the caver's wallet.  
+You can add a wallet instance to caver through `cav.klay.accounts.wallet.add(JSON.parse(walletFromSession))`.  
 For further information related `caver.klay.accounts.wallet.add`, see
 [caver.klay.accounts.wallet.add](https://docs.klaytn.com/sdk/caverjs/caver.klay.accounts#wallet-add)
 
-cf) `JSON.parse` is needed since `walletInstance` session is stored as JSON string.
+cf) `JSON.parse` is needed since `walletInstance` session is stored as a JSON string.
 
 ### 5) `src/klaytn/caver.js`:
 
@@ -211,10 +211,10 @@ export const cav = new Caver(config.rpcURL)
 export default cav
 ```
 
-caver-js library make a connection with klaytn node.  
-After making a connection, you can get current block number from the node, you can call method on smart contract with caver.  
+`caver-js` library makes a connection to a Klaytn node.  
+After the connection is made, you can get the current block number from the node and invoke contract methods. 
   
-You could connect to specific klaytn node by changing 'rpcURL' value.  
-- If you are running a klaytn full node, you can set rpcURL to your node's URL.  
+You can connect to a specific Klaytn node by specifying it in the 'rpcURL'.  
+- If you are running a Klaytn full node, you can set rpcURL to your node's URL.  
 for example, `rpcURL: 'http://localhost:8551'`  
 - If not, default rpcURL is `'https://api.baobab.klaytn.net:8651'`.

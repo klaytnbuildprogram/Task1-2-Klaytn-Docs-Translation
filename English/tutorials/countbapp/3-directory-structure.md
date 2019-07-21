@@ -16,27 +16,24 @@
     |-- App.js
     |-- routes.js
 ```
-WHAT ABOUT:
 
-`contracts/`: Contains the Solidity source files for our smart contracts. (__What is your contract logic? make it here with .sol extension__)  
+`contracts/`: Contains Solidity source files of the smart contracts.  
 
-`migrations/`: Contains javascript files that handle smart contract deployments. 1\_initial\_migration.js is an additional special smart contract that keeps track of changes. (__What contract exactly will you deploy? write down it here.__)  
+`migrations/`: Contains JavaScript files that handle smart contract deployments.
 
-`truffle.js`: Truffle configuration file that will configure the way you deploy your smart contracts.  
+`truffle.js`: Truffle configuration file.  
 
 
-`src/components`: Contains frontend component files  
+`src/components`: Contains frontend component files.  
 * `src/components/BlockNumber.js`: Shows the current block number.  
-* `src/components/Auth.js`: Enables to login to wallet with 2 different methods.  1)private key 2)keystore + password
-* `src/components/Count.js`: Enables to interact with deployed Count contract. We can call several functions declared in contract through caver.js.  
-ex) `plus`, `minus`,`lastParticipant`, `count`.
+* `src/components/Auth.js`: Handles user login using either private key or a keystore with password
+* `src/components/Count.js`: Handles interaction with the deployed Count contract. Invokes contract functions using caver.js.  
 
-`src/klaytn`: Contains klaytn blockchain related file.
-* `src/klaytn/caver.js`: It instantiates caver within configured setting.  
-cf) caver-js is a RPC call library which makes a connection to klaytn node, interacting with node or smart contract deployed on klaytn.
+`src/klaytn`: Contains files that support interactions with the Klaytn. 
+* `src/klaytn/caver.js`: Instantiates caver-js. caver-js is a JavaScript RPC call library which connects to a Klaytn node and interacts with the node or smart contracts deployed on Klaytn.
 
-`src/styles`: Overall style definition on stylesheet  
-`src/index.js`: Our tutorial app's index file. ReactDOM.render logic is in here.  
-`src/App.js`: Our tutorial app's root component file for overall components.  
+`src/styles`: CSS definition files.  
+`src/index.js`: Our tutorial app's index file. ReactDOM.render logic is here.  
+`src/App.js`: Our tutorial app's root component file.  
 `src/routes.js`: Contains route definitions.  
-`static/`: Contains static files, for example, images..
+`static/`: Contains static files such as images.

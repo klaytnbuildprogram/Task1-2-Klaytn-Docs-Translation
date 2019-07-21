@@ -1,17 +1,17 @@
 ## 6. Deploy your smart contract code
 
 1) truffle configuration  
-2) Deploy setup (What contract do you want to deploy?)  
+2) Deploy setup   
 3) Deploy  
 
 
 ### 1) truffle configuration  
 
-`truffle-config.js` file is the place you can describe "How to deploy your contract code". You can configure below items in truffle-config.js
+`truffle-config.js` file describes how to deploy your contract code. You can configure below items in truffle-config.js
 
-__1) Who will deploy the contract(Which klaytn account will deploy the contract)?  
-2) Which network will you deploy on?  
-3) How many gas will you pay to deploy the contract?__
+__1) Who will deploy the contract (Which Klaytn account will deploy the contract)?  
+2) Which network will you deploy to?  
+3) How many gas are you willing to pay to deploy the contract?__
 
 There are 2 different methods to deploy your contract, first one uses `private key`, the other one uses `unlocked account`.
 
@@ -66,36 +66,35 @@ module.exports = {
 
 ```
 
-See `networks` property above code. It has `klaytn` key which has 4 properties,
+See `networks` property in the above code. It has `klaytn` key which has 4 properties,
 `provider`, `network_id`, `gas`, `gasPrice`.
 
-`provider: new PrivateKeyConnector(PRIVATE_KEY, URL)` line informs truffle __Who will deploy the contract, and who will pay for the deploy fee? (PRIVATE_KEY)__  and __Which node will you deploy on (URL)?__
+`provider: new HDWalletProvider(PRIVATE_KEY, URL)` line informs the contract deployer account and the target network node URL.
 
-`network_id: NETWORK_ID` line specify network id in klaytn, you should specify it `1001` in klaytn baobab network(testnet).  
+`network_id: NETWORK_ID` line specifies the network id in Klaytn. Use `1001` for the Baobab network (testnet).  
 
-`gas: GASLIMIT` line informs truffle how much gas limit will you endure to deploy your contract.  
+`gas: GASLIMIT` line informs how much gas limit will you endure to deploy your contract.  
 
-`gasPrice: null` line informs truffle how much price will you pay per gas unit. Currently in klaytn, there is fixed gas price `'25000000000'`, you don't need to set this value to `gasPrice` property, if you set it as `null`, truffle will set fixed gas price automatically.  
+`gasPrice: null` line informs truffle how much price will you pay per gas unit. Currently in Klaytn, the price is fixed to `25000000000`. If you set it to `null`, truffle will set the value with the fixed gas price automatically.  
 
-Like above, if you deploy your contract with private key connector, You don't need to set `host`, `port`, `from` option.
 
 #### DEPLOY METHOD 2: By unlocked account (difficult)
-To deploy contract by unlocked account, you should have your klaytn full node.  
-Access your klaytn node's console by typing `$ klay attach http://localhost:8551`
-If you don't have account in the node, generate it by typing `personal.newAccount()` on klaytn console.  
+To deploy a contract by unlocked account, you should have your Klaytn full node.  
+Access your Klaytn node console by typing `$ klay attach http://localhost:8551`
+If you don't have a Klaytn account in the node, generate it by typing `personal.newAccount()` on the console.  
 If you already have one, unlock your account through `personal.unlockAccount()`.  
 
 After ensuring account is unlocked,  
-you should set properties `host`, `port`, `network_id`, `from`.
-1) where to deploy(`host`, `port`, `network_id`)  
-2) who will deploy(`from`)
-3) How much gas will you endure to deploy your contract.(`gas`)
+you should set the properties, `host`, `port`, `network_id`, and `from`.
+1) Which network to deploy (`host`, `port`, `network_id`)  
+2) Who will deploy (`from`)
+3) How much gas will you endure to deploy your contract (`gas`)
 
 Put your unlocked account address on `from`.
-If you're running your own klaytn full node, set the node's host to `host` and node's port to `port`.
-
+If you're running your own Klaytn full node, set the node's host to `host` and node's port to `port`.
 
 example)
+
 ```js
 {
   host: 'localhost',
@@ -107,11 +106,8 @@ example)
 }
 ```
 
-Like above, if you deploy your contract with unlocked account on klaytn node,
-You don't need to set `provider` option.
 
-
-### 2) Deploy setup (What contract do you want to deploy?)  
+### 2) Deploy setup (Which contract do you want to deploy?)  
 `migrations/2_deploy_contracts.js`:  
 
 ```js
@@ -145,44 +141,43 @@ module.exports = function (deployer) {
 ```
 
 You can specify which contract code will you deploy in your `contracts/` directory.  
-At first, you should import your contract file (`Count.sol`) in this file through `const Count = artifacts.require('./Count.sol')`  
-And use `deployer` to deploy your contract, through `deployer.deploy(Count)`. Actually, it is enough to deploy your contract.  
-However, if you want to add some logic after deploying your contract, use `.then()`.  
-We want to store deployed contracts' ABI and address.  `fs` node.js module make it possible to save it as a file. (`fs.writeFile(filename, content, callback)`)  
-Through this additional logic, we can save our deployed contract's address and ABI to our directory (`deployedABI` and `deployedAddress`).  
-
+First, you should import your contract file (`Count.sol`) in this file through `const Count = artifacts.require('./Count.sol')`  
+And use `deployer` to deploy your contract, through `deployer.deploy(Count)`.  
+If you want to run some logic after deploying your contract, use `.then()`.  
+We want to store the contract ABI and the deployed address in files. `fs` node.js module is used to do it. (`fs.writeFile(filename, content, callback)`)  
+Through this post process, we save our contract address and ABI as `deployedABI` and `deployedAddress` in the directory.  
 For further information about `artifacts.`, visit truffle document site, https://truffleframework.com/docs/truffle/getting-started/running-migrations#artifacts-require-
 
 ### 3) Deploy  
 You need KLAY to deploy a contract. There are 2 different ways to receive testnet KLAY.
 
-* a. Through Klaytn wallet  
+* a. On Klaytn wallet  
 https://baobab.wallet.klaytn.com/faucet  
 There is a faucet providing 5 KLAY per 86400 blocks in Klaytn Baobab testnet.  
 After creating your Klaytn account, run faucet to receive 5 KLAY.  
 
-* b. Through terminal curl  
+* b. From the terminal using curl  
 If you already have your Klaytn account(address), type the command below in your terminal.  
 `$ curl "https://baobab.wallet.klaytn.com/api/faucet/?address=YOUR_ADDRESS"`  
 example)  
 `$ curl "https://baobab.wallet.klaytn.com/api/faucet/?address=0x785172fBc2DB6BD6DA59927E79B43EDAa88d58d4"`
 
 ![deploy](./images/tutorial-3deploy.gif)  
-type `$ truffle deploy --network klaytn`.  
-It will deploy your contract according to `truffle-config.js` and `migrations/2_deploy_contracts.js` configuration.  
+
+Type `$ truffle deploy --network klaytn`.  
+It will deploy your contract according to the configurations defined in `truffle-config.js` and `migrations/2_deploy_contracts.js`.  
 
 cf) `--reset` option  
-After deploying your contract, if you just type `$ truffle deploy --network klaytn`,  Nothing will happen.  
-It's because truffle only deploy contract when there were change in contract, otherwise truffle will not do anything.  
-However, if you just want to deploy your contract anyway, there is an option `--reset`.  
+After deploying your contract, if you type `$ truffle deploy --network klaytn` again, nothing will happen.  
+Because truffle deploys a contract only when there are changes in the contract, otherwise truffle will not do anything.  
+If you want to re-deploy your contract anyway, there is an option `--reset`.  
 If you provide this option, truffle will deploy your contract even the content of contract hasn't changed.  
 ex) `$ truffle deploy --reset --network klaytn`
 
-To recap, `truffle-config.js` configures `where to deploy, who will deploy, how much gas will you endure to deploy`. `migrations/2_deploy_contracts.js` configures `what contract to deploy`.  
-`where?`: We will deploy our contract to the node `https://api.baobab.klaytn.net:8651` or own full node `http://localhost:8551`.  
-`who?`: '0xd0122fc8df283027b6285cc889f5aa624eac1d23' account address will deploy this contract.  
-`gas?`: We can endure '20000000' gas limit for deploying our contract.  
-`what contract?`: We will deploy our Count contract.  
+To recap, `truffle-config.js` configures the `target network`, `deployer account`, and the `gas limit`. `migrations/2_deploy_contracts.js` configures the `contract` to deploy.  
+`target network`: We deploy our contract to the node `https://api.baobab.klaytn.net:8651` or own full node `http://localhost:8551`.  
+`deployer account`: '0xd0122fc8df283027b6285cc889f5aa624eac1d23' will deploy this contract.  
+`gas limit`: We can endure up to '20000000' gas for deploying our contract.  
+`contract`: We will deploy the Count contract.  
 
-You can check your contract deployed on your terminal if you succeed.  
-You can also check the deployed contract address where the contract is deployed.  
+From the terminal output, you can see if the deployment has been succeeded, and the deployed address. 

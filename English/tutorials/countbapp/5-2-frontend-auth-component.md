@@ -4,43 +4,42 @@
 1) Background  
 2) `Auth` component overview  
 3) `Auth` component feature: User can input private key to login.  
-4) `Auth` component feature: User can import keystore file and input password to login.  
-5) `Auth` component feature: User can logout, remove wallet instance information from browser.  
+4) `Auth` component feature: User can import a keystore file and input password to login.  
+5) `Auth` component feature: User can logout and clear the wallet instance information from the browser.  
 
 ### 1) Background
-In blockchain based app, we usually interact with contract.  
-What does mean interacting with contract?  
-Basically, there are just 2 options to interact with contract.  
-`1) Read data from contract.`
-`2) Write data to contract.`
+In a blockchain based app, we usually interact with smart contracts.  
+Basically, there are 2 types of interaction with a contract.  
+`1) Read data from a contract.`
+`2) Write data to a contract.`
 
-It is cost-free to read data from contract.  
-On the otherhand, there is cost for writing data to contract(Sending a transaction).  
+It is cost-free to read data from contracts.  
+On the other hand, there is a cost for writing data to contract.  
 
 cf) `Sending a transaction`  
-It is called `Sending a transaction` for writing data to contract or blockchain.  
-For example, if you send 5 KLAY to your friend, you could think of it as `Write a data that I sent 5 KLAY to my friend to blockchain`.  
-Call a contract method is same. You could think of it as `Write a data to contract that I set variable X's value to 100`  All actions related to writing data to blockchain(contract) is called `Sending a transaction`.
+Writing data to contracts or blockchain is called 'sending a transaction'.  
+For example, if you send 5 KLAY to your friend, you could think of it as `writing data to the blockchain that I sent 5 KLAY to my friend`.  
+Calling a contract method is the same. You could think of it as `writing data onto the contract that I set variable X to 100`.  All actions related to writing data to blockchain or contract is called `sending a transaction`.
 
 
-By this reason, to write data to contract, you should have Klaytn account which has KLAY to pay for it.   
-`Auth` component helps you login to your app to pay for transaction fee.
+To write data to contract, you should have a Klaytn account which has KLAY to pay for the transaction fee.   
+`Auth` component helps you login to your app.
 
-\* There are some application for logging your wallet instance to blockchain based app, for example, in Ethereum, Metamask do this role, in EOS, Scatter do this role.  Currently, in Klaytn, we only support `Auth.js` component for logging in your blockchain based app. Later there will be more easy, not complicated method to login your app in Klaytn.
 
 ### 2) `Auth` component overview
-`'Auth.js'` component is longest code in our tutorial app, so we will break codes into step by step.  
+`'Auth.js'` component is the longest code in our tutorial app, so we will break down the code and go over one by one.  
 
-It looks like below.  
+This component provides the following user interface.
 ![auth-component](./images/tutorial-auth-component.png)
 
-This component features are like below:  
+Main features are:  
 1) User can input private key to login.  
-2) User can import keystore file and input password to login.  
-3) User can logout, remove wallet instance information from browser.  
+2) User can import a keystore file and input password to login.  
+3) User can logout and clear the wallet instance information from the browser.  
 
 ### 3) `Auth` component feature: User can input private key to login.
 `integrateWallet` method is needed to login with private key.
+
 ```js
 integrateWallet = (privateKey) => {
   const walletInstance = cav.klay.accounts.privateKeyToAccount(privateKey)
@@ -49,27 +48,29 @@ integrateWallet = (privateKey) => {
   this.reset()
 }
 ```
-`integateWallet` function takes `privateKey` as an argument, use it to make wallet instance.  
+
+`integateWallet` function takes `privateKey` as an argument, use it to generate a wallet instance.  
 
 Line 1: `const walletInstance = cav.klay.accounts.privateKeyToAccount(privateKey)`  
-It stores wallet instance made by `privateKeyToAccount` API to `walletInstance` variable.  
+It stores the wallet instance made by `privateKeyToAccount` API to the `walletInstance` variable.  
 
 Line 2: `cav.klay.accounts.wallet.add(walletInstance)`  
-To send a transaction, you should add wallet instance to caver through `cav.klay.accounts.wallet.add(walletInstance)`.
+To send a transaction, you should add a wallet instance to caver through `cav.klay.accounts.wallet.add(walletInstance)`.
 
 Line 3: `sessionStorage.setItem('walletInstance', JSON.stringify(walletInstance))`  
-`sessionStorage.setItem` is browser's API for storing value to browser's session storage.  
-Since we want to not lose our logged-in status even we refresh our tutorial app page, we stored it our wallet instance to session storage as JSON string.  
+`sessionStorage.setItem` is a browser API used for storing a value to the browser's session storage.  
+Since we want not to lose our logged-in status even we refresh our tutorial app page, we stored our wallet instance to the session storage as a JSON string.  
 
-cf) Items in session storage disappear when user close the browser tab.  
+cf) Items in the session storage disappears when the user closes the browser tab.  
 
 Line 4: `this.reset()`  
-It reset current component's state to initial state to clear your input on which private key is typed.  
+It resets the current component's state to the initial state to clear your input.  
 
 For further information about `privateKeyToAccount` API of caver-js, see [caver.klay.accounts.privateKeyToAccount](https://docs.klaytn.com/sdk/caverjs/caver.klay.accounts#privatekeytoaccount)
 
 ### 4) `Auth` component feature: User can import keystore file and input password to login.
-`handleImport`, `handleLogin` methods are needed to login with keystore + password
+`handleImport` and `handleLogin` methods are needed to login with a keystore and password.
+
 ```js
 /**
  * handleImport method takes a file, read
@@ -107,17 +108,17 @@ handleImport = (e) => {
 }
 ```
 
-To import file from user, we need `FileReader` browser API.  
-`e.target.files[0]` contains meta information for file. To read contents of the file, we need `fileReader.readAsText(keystore)` API.  
-After calling `fileReader.readAsText(keystore)`, `fileReader.onload` function fires to take the content of file as `e.target.result`.  
-Importing keystore is not enough to login, since it needs password to decrypt keystore.  
-So after importing keystore file, we still need to input password.  
+To import a file from user, we use `FileReader` browser API.  
+`e.target.files[0]` contains meta information for the file. To read the content of the file, we call `fileReader.readAsText(keystore)` API.  
+After calling `fileReader.readAsText(keystore)`, `fileReader.onload` function fires to take the content of the file as `e.target.result`.  
+After importing the keystore file, we get password input.  
 
-cf) keystore contains encrypted private key, we can't know actual private key only with keystore file.  
-We need to decrypt it through password so that we can export actual private key(decrypted) from keystore.  
+cf) Keystore contains an encrypted private key.
+We need the matching password to decrypt the keystore to get the actual private key.  
 *WARNING Don't expose your keystore file to another person!*
 
-Fill password into `<input>` element. filled value will be stored as `password` state through `handleChange` method.  
+Fill password into `<input>` element. Entered value will be stored as `password` state through `handleChange` method.  
+
 ```html
 <input
   id="input-password"
@@ -128,8 +129,8 @@ Fill password into `<input>` element. filled value will be stored as `password` 
 />
 ```
 
-If keystore file and password are ready, we can decrypt keystore file to export private key through `cav.klay.accounts.decrypt(keystore, password)` API.  
-This API returns wallet instance containing private key. After exporting private key, we can use `integrateWallet` method we've seen before.  
+Both the keystore file and its password are ready. We can now decrypt the keystore file to extract the private key through `cav.klay.accounts.decrypt(keystore, password)` API.  
+This API returns a wallet instance containing the private key. After importing the private key, we can use `integrateWallet` method we've visted earlier.  
 
 ```js
 handleLogin = () => {
@@ -154,9 +155,9 @@ handleLogin = () => {
 For further information about decrypting keystore file with password, see [caver.klay.accounts.decrypt](https://docs.klaytn.com/sdk/caverjs/caver.klay.accounts#decrypt)  
 
 ### 5) `Auth` component feature: User can logout, remove wallet instance information from browser.
-'logout' means remove wallet instance from browser and caver.  
-We can remove wallet instance from caver through `cav.klay.accounts.wallet.clear()` which removes all wallet instance from caver.  
-We can remove wallet instance stringified as JSON from browser's session storage through `sessionStorage.removeItem('walletInstance')`.  
+'logout' means removing the wallet instance from the browser and caver.  
+`cav.klay.accounts.wallet.clear()` removes all wallet instances from caver.  
+`sessionStorage.removeItem('walletInstance')` removes the wallet instance from the browser's session storage.   
 
 ```js
 /**
