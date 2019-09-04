@@ -1,6 +1,6 @@
 **`CHÚ Ý`**: Chắc  chắn  rằng  bạn  phải  nhớ  password của bạn. Nếu bạn mất password của tài khoản, bạn sẽ không thể truy cập vào tài khoản đó. **Không có tùy chọn_forgot my password_ở đây. Đảm bảo rằng không bao giờ quên.**
 
-Klaytn provides two handy command-line tools, `ken` and `JavaScript console`,  for developers to manage accounts. Lưu ý rằng xuất private key của bạn ở định dạng không được mã hóa sẽ KHÔNG được hỗ trợ.
+Klaytn cung cấp hai công cụ dòng lệnh tiện dụng, `ken` và `JavaScript console`, để các nhà phát triển quản lý tài khoản. Lưu ý rằng xuất private key của bạn ở định dạng không được mã hóa sẽ KHÔNG được hỗ trợ.
 
 ## ken
 
