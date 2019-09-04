@@ -51,9 +51,9 @@ Tài khoản được lưu dưới dạng mã hóa. Bạn **phải** ghi nhớ c
 
 Bạn có thể truy cập tài khoản bằng một keyfile. Các keyfile được giả định có chứa một private key được mã hóa như các byte EC nguyên bản được mã hóa thành hex. Hiểu một cách đơn giản, nó là một private key trong một văn bản đơn giản không có `0x` mở đầu. 
 
-Thao tác sử dụng keyfile có sẵn để mã hóa private key, tạo một tài khoản mới, tạo một tệp keystore trong thư mục dữ liệu, và in địa chỉ trong bảng console. Bạn phải nhớ cụm passphrase để mở khóa tài khoản trong tương lai.Thao tác sử dụng keyfile có sẵn để mã hóa private key, tạo một tài khoản mới, tạo một tệp keystore trong thư mục dữ liệu, và in địa chỉ trong bảng console. Bạn phải nhớ cụm passphrase để mở khóa tài khoản trong tương lai.Thao tác sử dụng keyfile có sẵn để mã hóa private key, tạo một tài khoản mới, tạo một tệp keystore trong thư mục dữ liệu, và in địa chỉ trong bảng console. Bạn phải nhớ cụm passphrase để mở khóa tài khoản trong tương lai.
+Thao tác nhập keyfile có sẵn để mã hóa private key, tạo một tài khoản mới, tạo một tệp keystore trong thư mục dữ liệu, và in địa chỉ trong bảng console. Bạn phải nhớ cụm passphrase để mở khóa tài khoản trong tương lai.
 
-**LƯU Ý**: If you can directly copy your keystore files to another Klaytn instance, this import/export mechanism is not needed.
+**LƯU Ý**: Nếu bạn có thể sao chép trực tiếp các tệp keystore của mình sang một instance Klaytn khác, cơ chế xuất/nhập này không cần thiết.
 
 ### ken
 
@@ -62,7 +62,7 @@ $ ken account import <keyfile> --datadir <DATADIR>
 $ ken account import --password <passwordfile> <keyfile> --datadir <DATADIR>
 ```
 
-### JavaScript Console
+### Console JavaScript
 
 ```bash
 > personal.importRawKey('{private key}', 'mypassword')
@@ -72,5 +72,4 @@ $ ken account import --password <passwordfile> <keyfile> --datadir <DATADIR>
 > personal.importRawKey('{private key}0x000x{address}', 'mypassword')
 "0xfa415bb3e6231f488ff39eb2897db0ef3636dd32"
 ```
-
 
